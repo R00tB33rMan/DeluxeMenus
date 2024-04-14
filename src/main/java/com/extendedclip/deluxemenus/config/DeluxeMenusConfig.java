@@ -1498,7 +1498,7 @@ public class DeluxeMenusConfig {
               continue;
             }
 
-            plugin.getUniversalScheduler().runTask(plugin);
+            actionTask.runTask(plugin);
           }
         }
       };

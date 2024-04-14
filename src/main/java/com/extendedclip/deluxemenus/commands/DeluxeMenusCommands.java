@@ -193,7 +193,7 @@ public class DeluxeMenusCommands implements CommandExecutor {
         return true;
       }
 
-      plugin.getUniversalScheduler().runTask(plugin);
+      actionTask.runTask(plugin);
 
       plugin.sms(
           sender,
