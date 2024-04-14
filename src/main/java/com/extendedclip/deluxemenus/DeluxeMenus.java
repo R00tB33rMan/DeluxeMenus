@@ -17,6 +17,8 @@ import com.extendedclip.deluxemenus.updatechecker.UpdateChecker;
 import com.extendedclip.deluxemenus.utils.DebugLevel;
 import com.extendedclip.deluxemenus.utils.Messages;
 import com.extendedclip.deluxemenus.utils.VersionHelper;
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
@@ -54,6 +56,7 @@ public class DeluxeMenus extends JavaPlugin {
   private MenuItemMarker menuItemMarker;
   private DupeFixer dupeFixer;
   private BukkitAudiences adventure;
+  private TaskScheduler universalScheduler;
 
   @Override
   public void onLoad() {
@@ -97,6 +100,7 @@ public class DeluxeMenus extends JavaPlugin {
       );
     }
 
+    this.universalScheduler = UniversalScheduler.getScheduler(this);
     menuItemMarker = new MenuItemMarker(this);
     dupeFixer = new DupeFixer(this, menuItemMarker);
 
@@ -171,7 +175,7 @@ public class DeluxeMenus extends JavaPlugin {
   public void onDisable() {
     Bukkit.getMessenger().unregisterOutgoingPluginChannel(this, "BungeeCord");
 
-    Bukkit.getScheduler().cancelTasks(this);
+    universalScheduler.cancelTasks(this);
 
     if (this.adventure != null) {
       this.adventure.close();
@@ -330,6 +334,10 @@ public class DeluxeMenus extends JavaPlugin {
       throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
     }
     return this.adventure;
+  }
+
+  public TaskScheduler getUniversalScheduler() {
+    return universalScheduler;
   }
 
   public void clearCaches() {

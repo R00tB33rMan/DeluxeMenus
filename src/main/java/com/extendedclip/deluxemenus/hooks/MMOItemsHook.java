@@ -10,7 +10,6 @@ import java.util.logging.Level;
 
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.Type;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +41,7 @@ public class MMOItemsHook implements ItemHook, SimpleCache {
 
         ItemStack mmoItem = null;
         try {
-            mmoItem = Bukkit.getScheduler().callSyncMethod(DeluxeMenus.getInstance(), () -> {
+            mmoItem = DeluxeMenus.getInstance().getUniversalScheduler().callSyncMethod(() -> {
                 ItemStack item = MMOItems.plugin.getItem(itemType, splitArgs[1]);
 
                 if (item == null) {
