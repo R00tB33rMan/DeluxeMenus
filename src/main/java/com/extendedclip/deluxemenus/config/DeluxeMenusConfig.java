@@ -1484,13 +1484,14 @@ public class DeluxeMenusConfig {
               continue;
             }
 
-            final ClickActionTask actionTask = new ClickActionTask(
+            final ClickActionTask actionTask = (ClickActionTask) plugin.getUniversalScheduler().runTask(holder.getViewer(), new ClickActionTask(
                     plugin,
                     holder.getViewer().getUniqueId(),
                     action.getType(),
                     action.getExecutable(),
                     holder.getTypedArgs(),
                     holder.parsePlaceholdersInArguments()
+                )
             );
 
             if (action.hasDelay()) {

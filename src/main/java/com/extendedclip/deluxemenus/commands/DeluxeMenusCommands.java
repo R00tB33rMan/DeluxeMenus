@@ -173,13 +173,14 @@ public class DeluxeMenusCommands implements CommandExecutor {
         return true;
       }
 
-      final ClickActionTask actionTask = new ClickActionTask(
+      final ClickActionTask actionTask = (ClickActionTask) plugin.getUniversalScheduler().runTask(target, new ClickActionTask(
               plugin,
               target.getUniqueId(),
               action.getType(),
               action.getExecutable(),
               holder.getTypedArgs(),
               true
+          )
       );
 
       if (action.hasDelay()) {
